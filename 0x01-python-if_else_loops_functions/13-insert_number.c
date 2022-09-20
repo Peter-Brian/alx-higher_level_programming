@@ -3,11 +3,11 @@
 #include <unistd.h>
 
 /**
- * insert_node - inserts a number in an ordered linked list
- * @head: double pointer to the linked list
- * @number: number to insert in the new node
+ * insert_node - inserts a number
+ * @head: double pointer
+ * @number: number to insert
  *
- * Return: address of the new node, or NULL
+ * Return: address of new node, or NULL
  */
 listint_t *insert_node(listint_t **head, int number)
 {
