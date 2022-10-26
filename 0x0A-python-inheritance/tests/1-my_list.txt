@@ -1,53 +1,87 @@
-=============================
 The ``1-my_list`` module
-=============================
+======================
 
 Using ``MyList``
----------------------
+-------------------
 
-Import the class:
+Importing the function from the module:
+        >>> MyList = __import__("1-my_list").MyList
 
-    >>> MyList = __import__('1-my_list').MyList
+Checking for module docstring:
+         >>> m = __import__("1-my_list").__doc__
+         >>> len(m) > 1
+         True
 
-Now test it:
+Checking for class docstring:
+         >>> c = __import__("1-my_list").MyList.__doc__
+         >>> len(c) > 1
+         True
 
-    >>> my_list = MyList()
+Checking for method docstring:
+	 >>> mod = __import__("1-my_list").MyList.print_sorted.__doc__
+	 >>> len(mod) > 1
+	 True
 
-    >>> my_list
-    []
+Checking that MyList inherits from list:
+	 >>> issubclass(MyList, list)
+	 True
 
-    >>> my_list.append(1)
+Checking for empty list:
+	 >>> l = MyList()
+	 >>> l.print_sorted()
+	 []
 
-    >>> my_list.append(4)
+Checking that appendng works:
+	 >>> l.append(1)
+	 >>> l.append(2)
+	 >>> l.append(3)
+	 >>> l.append(4)
+	 >>> print(l)
+	 [1, 2, 3, 4]
 
-    >>> my_list.append(2)
+Checking for list already in correct order:
+	 >>> l.print_sorted()
+	 [1, 2, 3, 4]
 
-    >>> my_list
-    [1, 4, 2]
+Checking for reversed order list:
+	 >>> l = MyList()
+	 >>> l.append(4)
+	 >>> l.append(3)
+	 >>> l.append(2)
+	 >>> l.append(1)
+	 >>> print(l)
+	 [4, 3, 2, 1]
+	 >>> l.print_sorted()
+	 [1, 2, 3, 4]
+	 >>> print(l)
+	 [4, 3, 2, 1]
 
-    >>> my_list.print_sorted()
-    [1, 2, 4]
+Checking for one negative number:
+	 >>> l.append(-1)
+	 >>> l.append(5)
+	 >>> print(l)
+	 [4, 3, 2, 1, -1, 5]
+	 >>> l.print_sorted()
+	 [-1, 1, 2, 3, 4, 5]
+	 >>> print(l)
+	 [4, 3, 2, 1, -1, 5]
 
-    >>> my_list
-    [1, 4, 2]
+Checking for all negative numbers:
+	 >>> l = MyList()
+	 >>> l.append(-10)
+	 >>> l.append(-1)
+	 >>> l.append(-7)
+	 >>> l.append(-2)
+	 >>> l.append(-8)
+	 >>> print(l)
+	 [-10, -1, -7, -2, -8]
+	 >>> l.print_sorted()
+	 [-10, -8, -7, -2, -1]
+	 >>> print(l)
+         [-10, -1, -7, -2, -8]
 
-    >>> my_list = MyList([3, 6, 2])
-
-    >>> my_list
-    [3, 6, 2]
-
-    >>> my_list.print_sorted()
-    [2, 3, 6]
-
-    >>> my_list = MyList("hello")
-    
-    >>> my_list
-    ['h', 'e', 'l', 'l', 'o']
-
-    >>> my_list.print_sorted()
-    ['e', 'h', 'l', 'l', 'o']
-
-    >>> new_l = MyList()
-
-    >>> new_l.print_sorted()
-    []
+Checking for too many arguments:
+	 >>> l.print_sorted(1)
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: print_sorted() takes 1 positional argument but 2 were given
