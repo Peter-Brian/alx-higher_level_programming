@@ -1,8 +1,13 @@
 #!/usr/bin/python3
-"""Module for to_json_string function."""
+""" JSON dude """
 import json
 
 
 def to_json_string(my_obj):
-    """This function return the object serialized by json."""
+    """ json definition method
+    Args:
+        my_obj(str): passed object to represent
+    Returns:
+        The JSON representation of an object
+    """
     return json.dumps(my_obj)
