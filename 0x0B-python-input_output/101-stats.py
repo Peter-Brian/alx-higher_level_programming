@@ -1,15 +1,57 @@
 #!/usr/bin/python3
-import random
-import sys
-from time import sleep
-import datetime
+""" script that count request by web request status """
 
-for i in range(10000):
-    sleep(random.random())
-    sys.stdout.write("{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n".format(
-        random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255),
-        datetime.datetime.now(),
-        random.choice([200, 301, 400, 401, 403, 404, 405, 500]),
-        random.randint(1, 1024)
-    ))
-    sys.stdout.flush()
+
+import sys
+import re
+
+
+file_size = 0
+status_count = {
+    200: 0, 301: 0, 400: 0, 401: 0,
+    403: 0, 404: 0, 405: 0, 500: 0
+}
+
+
+def incrementErrorStatusCount(prmString):
+    """ increment request number """
+    global file_size, status_count
+    try:
+        data = re.split("(.*) (.*) ([0-9]*)$", prmString)
+        if len(data) == 5:
+            if data[-3].isnumeric():
+                errorCode = int(data[-3])
+            file_size += (int(data[-2]))
+        if len(data) == 5 and checkValidity(errorCode) is True:
+            status_count[errorCode] += 1
+
+    except:
+        pass
+
+
+def checkValidity(prmErrorCode):
+    """ check error code validity """
+    global status_count
+    if prmErrorCode in status_count:
+        return True
+    return False
+
+
+def printStatistics():
+    """ print statistics """
+    global file_size, status_count
+    print("File size: {:d}".format(file_size))
+    for errorCode, count in sorted(status_count.items()):
+        if status_count[errorCode]:
+            print("{:d}: {:d}".format(errorCode, count))
+
+
+try:
+    for index, line in enumerate(sys.stdin):
+        incrementErrorStatusCount(line)
+        if (index + 1) % 10 == 0:
+            printStatistics()
+except KeyboardInterrupt:
+    pass
+finally:
+    printStatistics()
