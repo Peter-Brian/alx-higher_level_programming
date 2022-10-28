@@ -4,4 +4,4 @@
 
 def class_to_json(obj):
     """Class to Json"""
-    return obj.
+    return obj.__dict__
