@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-""" JSON dude """
+""" save_to_json_file module """
+
+
 import json
 
 
-def to_json_string(my_obj):
-    """ json definition method
-    Args:
-        my_obj(str): passed object to represent
-    Returns:
-        The JSON representation of an object
+def save_to_json_file(prmObj, prmFileName):
     """
-    return json.dumps(my_obj)
+        function to save an object to a file
+        Args:
+            prmObj: object
+            prmFileName: name of the file
+    """
+    with open(prmFileName, 'w') as file:
+        json.dump(prmObj, file)
