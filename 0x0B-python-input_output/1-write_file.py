@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-"""Module for number_of_lines function."""
+"Method Module"
 
 
-def number_of_lines(filename=""):
-    """This function return the number of lines of a text file."""
-    with open(filename) as f:
-        total = 0
-        for run in enumerate(f):
-            total = total + 1
-    return total
+def write_file(filename="", text=""):
+    """function that writes a string to a text file (UTF8)
+    and returns the number of characters written"""
+    with open(filename, 'w', encoding="utf-8") as f:
+        return(f.write(text))
