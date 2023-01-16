@@ -1,4 +1,3 @@
 #!/usr/bin/node
-console.log('C is fun');
-console.log('Python is cool');
-console.log('Javascript is amazing');
+// script that write a text with \n
+console.log('C is fun\nPython is cool\nJavaScript is amazing');
