@@ -1,10 +1,15 @@
 #!/usr/bin/node
 
-const fs = require('fs');
+const { dict } = require('./101-data');
 
-const contentA = fs.readFileSync(process.argv[2], 'utf8', function (err, result) { if (err) console.log('error', err); });
-const contentB = fs.readFileSync(process.argv[3], 'utf8', function (err, result) { if (err) console.log('error', err); });
+// script that imports a dictionary of occurrences by user id and computes a dictionary of user ids by occurrence
 
-const contentC = contentA.concat(contentB);
-
-fs.writeFile(process.argv[4], contentC, 'utf8', function (err, result) { if (err) console.log('error', err); });
+const newDict = {};
+for (const key in dict) {
+  if (newDict[dict[key]] === undefined) {
+    newDict[dict[key]] = [key];
+  } else {
+    newDict[dict[key]].push(key);
+  }
+}
+console.log(newDict);
