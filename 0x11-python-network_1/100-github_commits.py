@@ -1,13 +1,16 @@
-#!/usr/bin/python3
-"""
-list 10 commits (from the most recent to oldest)
-"""
-if __name__ == '__main__':
-    import requests
-    from sys import argv
-    r = requests.get('https://api.github.com/repos/{}/{}/commits'
-                     .format(argv[2], argv[1]))
-    commits = r.json()
+import requests
+import sys
+
+def get_commits(repo, owner):
+    url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+    response = requests.get(url)
+    commits = response.json()
     for commit in commits[:10]:
-        print(commit.get('sha'), end=': ')
-        print(commit.get('commit').get('author').get('name'))
+        sha = commit['sha']
+        author = commit['commit']['author']['name']
+        print(f"{sha}: {author}")
+
+if __name__ == "__main__":
+    repo = sys.argv[1]
+    owner = sys.argv[2]
+    get_commits(repo, owner)
