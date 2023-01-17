@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """script of status request"""
 
-
 if __name__ == "__main__":
     import requests
     response = requests.get("https://intranet.hbtn.io/status")
