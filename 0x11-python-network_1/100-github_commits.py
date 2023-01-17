@@ -1,16 +1,17 @@
-import requests
-import sys
+#!/usr/bin/python3
+"""Takes in Github repo nd owner name to list
+10 commits (from the most recent to oldest)"""
 
-def get_commits(repo, owner):
-    url = f"https://api.github.com/repos/{owner}/{repo}/commits"
-    response = requests.get(url)
-    commits = response.json()
-    for commit in commits[:10]:
-        sha = commit['sha']
-        author = commit['commit']['author']['name']
-        print(f"{sha}: {author}")
 
 if __name__ == "__main__":
-    repo = sys.argv[1]
-    owner = sys.argv[2]
-    get_commits(repo, owner)
+    import requests
+    import sys
+
+    r = requests.get('https://api.github.com/repos/{}/{}/commits'
+                     .format(sys.argv[2], sys.argv[1]))
+    if r.status_code >= 400:
+        print('None')
+    else:
+        for com in r.json()[:10]:
+            print("{}: {}".format(com.get('sha'),
+                                  com.get('commit').get('author').get('name')))
