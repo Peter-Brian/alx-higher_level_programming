@@ -1,14 +1,14 @@
 #!/usr/bin/python3
-"""Error Code"""
+"""Takes in a URL, sends a request to the URL and
+displays the body of the response"""
 
 if __name__ == "__main__":
-    import sys
     import urllib.request
-    import urllib.error
-    url = sys.argv[1]
+    from urllib.error import HTTPError
+    import sys
+
     try:
-        with urllib.request.urlopen(url) as data:
-            html = data.read().decode('utf-8')
-            print(html)
-    except urllib.error.HTTPError as e:
-        print('Error code: {}'.format(e.code))
+        with urllib.request.urlopen(sys.argv[1]) as response:
+            print(response.read().decode("utf-8", "replace"))
+    except HTTPError as e:
+        print("Error code: {}".format(e.code))
